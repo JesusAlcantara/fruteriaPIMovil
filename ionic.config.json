@@ -1,5 +1,7 @@
 {
   "name": "fruteriaPI",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }

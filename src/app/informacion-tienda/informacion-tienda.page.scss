@@ -1,0 +1,22 @@
+ion-toolbar {
+    --ion-background-color: transparent;
+}
+
+ion-content {
+    --ion-background-color:#1fa74f !important;
+    --ion-item-background: transparent !important;
+}
+
+ion-menu {
+    ion-toolbar {
+        background-color: #080808;
+    }
+
+    ion-item {
+        color:#080808;
+        a {
+            text-decoration: none;
+            color: #080808;
+        }
+    }
+}

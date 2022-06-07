@@ -1,0 +1,67 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button text="Volver" defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-card class="ion-no-margin">
+      <ion-img src="assets/images/loginimg.png"></ion-img>
+      <ion-card-content>
+
+    <form [formGroup]="usuario" (ngSubmit)="guardarDatos()"> <!-- (ngSubmit)="LoginUser(usuario.value)" -->
+        <div class="wrapform">
+         <ion-item>
+            <ion-input type="text" name="email" formControlName="email"  placeholder="Email">
+           <ion-icon name="mail-outline"></ion-icon>
+           </ion-input>
+           </ion-item>
+           <div>
+               <ng-container *ngFor="let validation of errorMessages.email">
+                     <div class="error_message" *ngIf="usuario.get('email').hasError(validation.type) && (usuario.get('email').dirty || usuario.get('email').touched)">
+                        {{validation.message}}
+                     </div>
+               </ng-container>
+           </div>
+
+           <ion-item>
+
+             <ion-input type="password" name="password" formControlName="password"  placeholder="**************" >
+             <ion-icon name="lock-closed"></ion-icon>
+             </ion-input>
+             </ion-item>
+
+             <div>
+                 <ng-container *ngFor="let validation of errorMessages.password">
+                      <div class="error_message" *ngIf="usuario.get('password').hasError(validation.type) && (usuario.get('password').dirty || usuario.get('password').touched)">
+                         {{validation.message}}
+                      </div>
+                  </ng-container>
+             </div>
+
+        </div>
+         <div class="password_forgot">
+            <ion-button fill="clear" class="ion-no-padding">¿Has olvidado tu contraseña?</ion-button>
+         </div>
+         <div class="sign-btn-wrap">
+            <ion-button  shape="round" fill="solid" type="submit" class="sign-btn" [disabled]="!usuario.valid">Login</ion-button>
+         </div>
+
+
+
+      </form>
+      </ion-card-content>
+
+
+    </ion-card>
+
+
+    <div class="ion-card-footer">
+     <span>¿No tienes una cuenta?</span><button class="ion-no-padding" >Regístrate</button>
+      </div>
+
+
+
+</ion-content>
