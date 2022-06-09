@@ -11,7 +11,7 @@
       <ion-img src="assets/images/loginimg.png"></ion-img>
       <ion-card-content>
 
-    <form [formGroup]="usuario" (ngSubmit)="guardarDatos()"> <!-- (ngSubmit)="LoginUser(usuario.value)" -->
+    <form [formGroup]="loginusuario" autocomplete="off">
         <div class="wrapform">
          <ion-item>
             <ion-input type="text" name="email" formControlName="email"  placeholder="Email">
@@ -20,7 +20,7 @@
            </ion-item>
            <div>
                <ng-container *ngFor="let validation of errorMessages.email">
-                     <div class="error_message" *ngIf="usuario.get('email').hasError(validation.type) && (usuario.get('email').dirty || usuario.get('email').touched)">
+                     <div class="error_message" *ngIf="loginusuario.get('email').hasError(validation.type) && (loginusuario.get('email').dirty || loginusuario.get('email').touched)">
                         {{validation.message}}
                      </div>
                </ng-container>
@@ -35,7 +35,7 @@
 
              <div>
                  <ng-container *ngFor="let validation of errorMessages.password">
-                      <div class="error_message" *ngIf="usuario.get('password').hasError(validation.type) && (usuario.get('password').dirty || usuario.get('password').touched)">
+                      <div class="error_message" *ngIf="loginusuario.get('password').hasError(validation.type) && (loginusuario.get('password').dirty || loginusuario.get('password').touched)">
                          {{validation.message}}
                       </div>
                   </ng-container>
@@ -46,7 +46,7 @@
             <ion-button fill="clear" class="ion-no-padding">¿Has olvidado tu contraseña?</ion-button>
          </div>
          <div class="sign-btn-wrap">
-            <ion-button  shape="round" fill="solid" type="submit" class="sign-btn" [disabled]="!usuario.valid">Login</ion-button>
+            <ion-button  shape="round" fill="solid" (click)="guardarDatos()" class="sign-btn" [disabled]="!loginusuario.valid">Login</ion-button>
          </div>
 
 

@@ -12,22 +12,25 @@ export class RestServiceService {
   rol: any;
   productos: any[];
   nombreUsuario: string = '';
+  productoDevuelto: any;
+  carrito: any[] = [];
+  cantidadProducto: number;
+  precio: number;
 
   constructor(private Http:HttpClient) { }
 
-  async login(loginUsuario: any){
+  login(loginUsuario: any){
     return new Promise(resolve => {
-      this.Http.post<any>(this.apiUrl+'/login', 
-      {email: loginUsuario.value.email,
+      this.Http.post<any>(this.apiUrl+'/login',{
+        email: loginUsuario.value.email,
         password: loginUsuario.value.password
-       })
+      })
        .subscribe(data => {
-        this.token = data.data.token,
         this.rol= data.data.rol,
         console.log(data),
         this.idUsuario = data.data.id,
         this.nombreUsuario = data.data.nombre
-        resolve(data);
+        resolve(data.data);
        }, err=>{
          console.log('Error '+err);
        })
@@ -51,6 +54,30 @@ export class RestServiceService {
         console.log('Error, '+err);
       })
     });
+  }
+
+  obtenerProducto(idProducto: any) {
+    return new Promise(resolve => {
+      this.Http.get<any>(this.apiUrl+'/listProductos/'+idProducto,
+      {
+        headers: new HttpHeaders().set('Authorization','Bearer '+this.token)
+      }
+      )
+      .subscribe(data => {
+        resolve(data)
+        this.productoDevuelto=data;
+        this.cantidadProducto = data.cantidad
+        this.precio = data.precio
+        this.carrito.push(this.productoDevuelto)
+      },
+      err=> {
+        console.log('Error, '+err);
+      })
+    })
+  }
+
+  confirmarPedido() {
+
   }
 
 }

@@ -1,0 +1,30 @@
+ion-toolbar {
+    --ion-background-color: transparent;
+}
+
+ion-content {
+    --ion-background-color:#1fa74f !important;
+    --ion-item-background: transparent !important;
+
+}
+
+div {
+    --ion-background-color: transparent;
+    margin-left: 17%;
+    margin-top: 10px;
+
+    .btnVaciar {
+        --ion-color-primary:#c70000;
+        color: #ffffff;
+    }
+    
+    .btnConfirmar {
+        --ion-color-primary:#c1d118;
+        color: #080808;
+    }
+}
+
+ion-card {
+    background-color: #ffffff;
+    color: black;
+}

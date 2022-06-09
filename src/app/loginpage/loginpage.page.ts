@@ -10,7 +10,7 @@ import { RestServiceService } from '../services/rest-service.service';
 })
 export class LoginpagePage implements OnInit {
 
-  usuario: FormGroup;
+  loginusuario: FormGroup;
   token: any;
   datos: any[];
   loading: any;
@@ -19,7 +19,7 @@ export class LoginpagePage implements OnInit {
               private restService: RestServiceService,
               private alertCtrl: AlertController, 
               public navCtrl: NavController) { 
-    this.usuario = this.createForm();
+    this.loginusuario = this.createForm();
   }
 
   public createForm() : FormGroup{
@@ -33,10 +33,10 @@ export class LoginpagePage implements OnInit {
   }
 
   get email() {
-    return this.usuario.get('email');
+    return this.loginusuario.get('email');
   }
   get password() {
-    return this.usuario.get('password');
+    return this.loginusuario.get('password');
   }
 
   public errorMessages = {
@@ -55,14 +55,13 @@ export class LoginpagePage implements OnInit {
   
 
   async guardarDatos(){
-      this.restService.login(this.usuario)
+      this.restService.login(this.loginusuario)
       .then((result)=>{
         console.log(result);
         this.presentAlert();
         this.tipoUsuario();
       }, (err)=>{
         this.errorAlert();
-        console.log(err);
       })
   }
 
@@ -87,7 +86,7 @@ export class LoginpagePage implements OnInit {
   async tipoUsuario(){
     if(this.restService.rol==='ROL_CLIENTE'){
         //this.showLoader();
-        this.navCtrl.navigateRoot('inicio-cliente');
+        this.navCtrl.navigateForward('inicio-cliente');
     }
   }
 }

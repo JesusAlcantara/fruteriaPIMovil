@@ -23,6 +23,18 @@ const routes: Routes = [
     path: 'informacion-tienda',
     loadChildren: () => import('./informacion-tienda/informacion-tienda.module').then( m => m.InformacionTiendaPageModule)
   },
+  {
+    path: 'carrito-compra',
+    loadChildren: () => import('./carrito-compra/carrito-compra.module').then( m => m.CarritoCompraPageModule)
+  },
+  {
+    path: 'ver-pedidos',
+    loadChildren: () => import('./ver-pedidos/ver-pedidos.module').then( m => m.VerPedidosPageModule)
+  },
+  {
+    path: 'localizacion',
+    loadChildren: () => import('./localizacion/localizacion.module').then( m => m.LocalizacionPageModule)
+  }
 ];
 
 @NgModule({
