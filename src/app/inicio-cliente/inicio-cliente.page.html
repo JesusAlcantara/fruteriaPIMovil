@@ -15,21 +15,21 @@
   <ion-menu side="start" menuId="first" contentId="main">
     <ion-header>
       <ion-toolbar color="terciary">
-        <ion-title>Menú</ion-title>
+        <ion-title>Menú | {{ nombreUsuario }}</ion-title>
       </ion-toolbar>
     </ion-header>
     <ion-content color="success">
       <ion-list>
         <ion-item><a routerLink="/inicio-cliente">Inicio</a></ion-item>
         <ion-item><a routerLink="/informacion-tienda">Información Tienda</a></ion-item>
-        <ion-item>Ver localización</ion-item>
-        <ion-item>Ver Pedidos</ion-item>
-        <ion-item><a routerLink="/loginpage">Cerrar Sesión</a></ion-item>
+        <ion-item><a routerLink="/localizacion">Ver Localización</a></ion-item>
+        <ion-item><a routerLink="/ver-pedidos">Ver Pedidos</a></ion-item>
+        <ion-item><a (click)="logout()">Cerrar Sesión</a></ion-item>
       </ion-list>
     </ion-content>
   </ion-menu>
   <ion-router-outlet id="main"></ion-router-outlet>
-  <ion-searchbar animated (ionChange)="buscar($event)"></ion-searchbar>
+  <ion-searchbar animated (ionChange)="buscar($event)" placeholder="Buscar..."></ion-searchbar>
   <ion-card *ngFor="let producto of productos | filtro : textoBuscar">
     <ion-card-header>
       <!-- <ion-img [src]="producto.foto"></ion-img> -->

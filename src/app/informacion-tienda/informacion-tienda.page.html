@@ -11,18 +11,42 @@
   <ion-menu side="start" menuId="first" contentId="main">
     <ion-header>
       <ion-toolbar color="terciary">
-        <ion-title>Menú</ion-title>
+        <ion-title>Menú | {{ nombreUsuario }}</ion-title>
       </ion-toolbar>
     </ion-header>
     <ion-content color="success">
       <ion-list>
         <ion-item><a routerLink="/inicio-cliente">Inicio</a></ion-item>
         <ion-item><a routerLink="/informacion-tienda">Información Tienda</a></ion-item>
-        <ion-item>Ver localización</ion-item>
-        <ion-item>Ver Pedidos</ion-item>
-        <ion-item><a routerLink="/loginpage">Cerrar Sesión</a></ion-item>
+        <ion-item><a routerLink="/localizacion">Ver Localización</a></ion-item>
+        <ion-item><a routerLink="/ver-pedidos">Ver Pedidos</a></ion-item>
+        <ion-item><a (click)="logout()">Cerrar Sesión</a></ion-item>
       </ion-list>
     </ion-content>
   </ion-menu>
   <ion-router-outlet id="main"></ion-router-outlet>
+  <ion-card>
+    <ion-card-header>
+      <ion-img src="assets/images/mihuerto.jpeg"></ion-img>
+    </ion-card-header>
+    <ion-card-content>
+      <h1><strong>Frutería Mi Huerto</strong></h1>
+      <p>Frutería Mi Huerto abrió su primer establecimiento en enero de 2016 en Córdoba (España) y, siete meses después, 
+        en septiembre del mismo año se procedió a la apertura de se segundo establecimiento en Córdoba (España).
+        Se trata de una empresa familiar, la cual está compuesta por los dos principales socios, Carlos Alberto Cortez Iturralde y Alberto Saraguro Márquez. <br><br>
+        La actividad principal del comercio se ajusta al código 472 del CNAE: Comercio al por menor de productos alimenticios y 
+        bebidas. Así mismo, en este establecimiento se pueden encontrar productos internacionales ya que tenemos una gran variedad de proveedores.
+      </p>
+      <br>
+      <p><ion-icon name="compass"></ion-icon> Av. del Aeropuerto, local 12, 14004 Córdoba</p>
+      <p><ion-icon name="compass"></ion-icon> C/ Infanta Doña María, local 72, 14004 Córdoba</p>
+
+      <br>
+
+      <p><strong>Redes Sociales:</strong></p>
+      <p><ion-icon name="logo-whatsapp"></ion-icon> 689 45 27 26 / 616 80 27 93</p>
+      <p><ion-icon name="logo-facebook"></ion-icon> https://es-es.facebook.com/mhuerto.2/</p>
+      <p><ion-icon name="mail"></ion-icon> fruteriamihuerto@gmail.com</p>
+    </ion-card-content>
+  </ion-card>
 </ion-content>

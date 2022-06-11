@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { RestServiceService } from '../services/rest-service.service';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-ver-pedidos',
@@ -7,9 +9,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class VerPedidosPage implements OnInit {
 
-  constructor() { }
+  pedidos: any[] = []
+
+  constructor(private restService: RestServiceService,
+              private navCtrl: NavController) { }
 
   ngOnInit() {
+  }
+
+  ver() {
+    this.restService.verPedidos(this.restService.idUsuario)
+  }
+
+  logout() {
+    localStorage.removeItem('token')
+    this.navCtrl.navigateForward(['loginpage'])
   }
 
 }

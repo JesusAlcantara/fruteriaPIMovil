@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { AlertController } from '@ionic/angular';
+import { Geolocation } from '@capacitor/geolocation';
 
 @Injectable({
   providedIn: 'root'
@@ -17,24 +19,46 @@ export class RestServiceService {
   cantidadProducto: number;
   precio: number;
 
-  constructor(private Http:HttpClient) { }
+  constructor(private Http:HttpClient,
+              private alertCtrl: AlertController) { }
 
-  login(loginUsuario: any){
+  async login(loginUsuario: any){
+
+    let header = {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      //Accept: 'application/json'
+    }
+
+    let options = {
+      headers: header
+    }
+
+    let body = ('email=' + loginUsuario.value.email + '&password=' + loginUsuario.value.password)
+
     return new Promise(resolve => {
-      this.Http.post<any>(this.apiUrl+'/login',{
-        email: loginUsuario.value.email,
-        password: loginUsuario.value.password
-      })
+      this.Http.post<any>(this.apiUrl+'/login', body, options)
        .subscribe(data => {
-        this.rol= data.data.rol,
-        console.log(data),
-        this.idUsuario = data.data.id,
-        this.nombreUsuario = data.data.nombre
-        resolve(data.data);
+          this.rol = data.rol,
+          console.log(data),
+          console.log('id: ', data.id)
+          this.idUsuario = data.id,
+          this.nombreUsuario = data.nombre
+          sessionStorage.setItem('token', data.token)
+          resolve(data);
        }, err=>{
-         console.log('Error '+err);
+         this.errorAlert()
        })
     });
+  }
+
+  async errorAlert() {
+    const alert = await this.alertCtrl.create({
+      header: 'Error al introducir los datos',
+      message: 'Regístrese o introduzca los datos correctos.',
+      buttons: ['OK']
+    });
+    
+    await alert.present();
   }
 
   async obtenerProductos() {
@@ -76,8 +100,45 @@ export class RestServiceService {
     })
   }
 
-  confirmarPedido() {
+  confirmarPedido(formateo:string, idUsuario) {
+    console.log(this.idUsuario)
+    let header = {
+      'Content-Type': 'application/x-www-form-urlencoded',
+    }
 
+    let options = {
+      headers: header
+    }
+
+    let body = ('formateo=' + formateo + '&id=' + idUsuario)
+
+    return new Promise(resolve => {
+      this.Http.post<any>(this.apiUrl+'/pedido', body, options)
+       .subscribe(data => {
+         console.log('llego')
+          console.log(data),
+          resolve(data);
+       }, err=>{
+         console.log('Error ', err)
+       })
+    });
+  }
+
+  verPedidos(idUsuario:any) {
+    this.Http.get<any>(this.apiUrl+"/verPedidos/"+idUsuario, {
+      headers: new HttpHeaders().set('Content-Type','application/json')
+    }).subscribe(data => {
+      console.log(data)
+    }, err=> {
+      console.log(err)
+    })
+  }
+
+  geolocalizacion() {
+    const printCurrentPosition = async () => {
+      const coordinates = await Geolocation.getCurrentPosition();
+      console.log('Current position:', coordinates);
+    }
   }
 
 }

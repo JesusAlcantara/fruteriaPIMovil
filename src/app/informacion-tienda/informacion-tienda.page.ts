@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuController } from '@ionic/angular';
+import { MenuController, NavController } from '@ionic/angular';
 import { RestServiceService } from '../services/rest-service.service';
 
 @Component({
@@ -12,13 +12,19 @@ export class InformacionTiendaPage implements OnInit {
   nombreUsuario: string = this.restService.nombreUsuario;
 
   constructor(private menu: MenuController, 
-              private restService: RestServiceService) { }
+              private restService: RestServiceService,
+              private navCtrl: NavController) { }
 
   ngOnInit() {
   }
 
   toggleMenu() {
     this.menu.toggle()
+  }
+
+  logout() {
+    localStorage.removeItem('token')
+    this.navCtrl.navigateForward(['loginpage'])
   }
 
 }

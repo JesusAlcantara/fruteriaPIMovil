@@ -61,7 +61,7 @@ export class LoginpagePage implements OnInit {
         this.presentAlert();
         this.tipoUsuario();
       }, (err)=>{
-        this.errorAlert();
+
       })
   }
 
@@ -74,15 +74,7 @@ export class LoginpagePage implements OnInit {
 
     await alert.present();
   }
-  async errorAlert() {
-    const alert = await this.alertCtrl.create({
-      header: 'Error al introducir los datos',
-      message: 'Registrese o introduzca los datos correctos.',
-      buttons: ['OK']
-    });
-
-  await alert.present();
-  }
+  
   async tipoUsuario(){
     if(this.restService.rol==='ROL_CLIENTE'){
         //this.showLoader();

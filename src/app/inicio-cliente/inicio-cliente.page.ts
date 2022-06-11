@@ -23,6 +23,7 @@ export class InicioClientePage implements OnInit {
 
   toggleMenu() {
     this.menu.toggle()
+    this.menu.enable(true);
   }
 
   ngOnInit() {
@@ -42,6 +43,11 @@ export class InicioClientePage implements OnInit {
     }).catch( (error) => {
       console.log(error);
   });
+  }
+
+  logout() {
+    window.sessionStorage.clear();
+    this.navCtrl.navigateForward(['loginpage'])
   }
 
   anyadirProducto(idProducto:any) {
