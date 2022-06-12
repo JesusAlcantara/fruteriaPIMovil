@@ -17,6 +17,7 @@ export class RestServiceService {
   productoDevuelto: any;
   carrito: any[] = [];
   cantidadProducto: number;
+  pedidosUser: any[] = []
   precio: number;
 
   constructor(private Http:HttpClient,
@@ -43,6 +44,7 @@ export class RestServiceService {
           console.log('id: ', data.id)
           this.idUsuario = data.id,
           this.nombreUsuario = data.nombre
+          this.pedidosUser = data.pedidos
           sessionStorage.setItem('token', data.token)
           resolve(data);
        }, err=>{
