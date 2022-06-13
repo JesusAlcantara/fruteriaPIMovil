@@ -39,18 +39,30 @@ export class RestServiceService {
     return new Promise(resolve => {
       this.Http.post<any>(this.apiUrl+'/login', body, options)
        .subscribe(data => {
-          this.rol = data.rol,
-          console.log(data),
-          console.log('id: ', data.id)
-          this.idUsuario = data.id,
+          this.rol = data.rol
+          this.idUsuario = data.id
           this.nombreUsuario = data.nombre
           this.pedidosUser = data.pedidos
           sessionStorage.setItem('token', data.token)
-          resolve(data);
+          if(data.activo == 1) {
+            resolve(data);
+          } else {
+            this.noActivo()
+          }
        }, err=>{
          this.errorAlert()
        })
     });
+  }
+
+  async noActivo() {
+    const alert = await this.alertCtrl.create({
+      header: 'Error',
+      message: 'Espere a ser dado de alta. Gracias.',
+      buttons: ['OK']
+    });
+    
+    await alert.present();
   }
 
   async errorAlert() {
@@ -102,7 +114,7 @@ export class RestServiceService {
     })
   }
 
-  confirmarPedido(formateo:string, idUsuario, fechaHoy:any, precio:any) {
+  confirmarPedido(formateo:string, idUsuario, fechaHoy:any, precio:any, direccion:any) {
     console.log(this.idUsuario)
     let header = {
       'Content-Type': 'application/x-www-form-urlencoded',
@@ -112,13 +124,13 @@ export class RestServiceService {
       headers: header
     }
 
-    let body = ('formateo=' + formateo + '&id=' + idUsuario + '&fecha_pedido=' + fechaHoy + '&precio_total=' + precio)
+    let body = ('formateo=' + formateo + '&id=' + idUsuario + '&fecha_pedido=' + fechaHoy + '&precio_total=' + precio + '&direccion=' + direccion)
 
     return new Promise(resolve => {
       this.Http.post<any>(this.apiUrl+'/pedido', body, options)
        .subscribe(data => {
-         console.log('llego')
           console.log(data),
+          this.carrito = []
           resolve(data);
        }, err=>{
          console.log('Error ', err)

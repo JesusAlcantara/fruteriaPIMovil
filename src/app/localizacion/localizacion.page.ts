@@ -100,7 +100,7 @@ export class LocalizacionPage implements OnInit {
         // Podemos configurar un evento que se ejecute cuando
         // se haya dado clic
         marker.on(GoogleMapsEvent.MARKER_CLICK).subscribe(() => {
-          this.showToast("clicked!");
+          this.showToast("Mi Ubicación.");
         });
       })
       .catch(error => {

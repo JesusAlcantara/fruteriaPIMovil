@@ -15,6 +15,7 @@ export class CarritoCompraPage implements OnInit {
   fechaHoy: Date = new Date()
   pipeDate = new DatePipe('es-ES')
   todayWithPipe = null
+  direccion: any = ''
 
   constructor(private restService: RestServiceService,
               private navCtrl: NavController,
@@ -46,7 +47,7 @@ export class CarritoCompraPage implements OnInit {
       }
     })
     this.todayWithPipe = this.pipeDate.transform(Date.now(), 'yyyy/MM/dd');
-    this.restService.confirmarPedido(formateo, this.restService.idUsuario, this.todayWithPipe, this.precioTotal)
+    this.restService.confirmarPedido(formateo, this.restService.idUsuario, this.todayWithPipe, this.precioTotal, this.direccion)
     this.restService.carrito = []
     this.navCtrl.navigateForward(['inicio-cliente'])
     this.presentAlert()
@@ -60,6 +61,34 @@ export class CarritoCompraPage implements OnInit {
     });
 
     await alert.present();
+  }
+
+  async presentPrompt() {
+    let alert = await this.alertCtrl.create({
+      header: 'Dirección',
+      inputs: [
+        {
+          name: 'direccion',
+          placeholder: 'Dirección...'
+        }
+      ],
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          handler: data => {
+          }
+        },
+        {
+          text: 'Introduzca su dirección',
+          handler: data => {
+            this.direccion = data.direccion
+            this.confirmarPedido()
+          }
+        }
+      ]
+    });
+    alert.present()
   }
   
 
