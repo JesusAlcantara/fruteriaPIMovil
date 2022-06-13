@@ -47,8 +47,8 @@ export class LocalizacionPage implements OnInit {
     this.map = GoogleMaps.create("map_canvas", {
       camera: {
         target: {
-          lat: -2.1537488,
-          lng: -79.8883037
+          lat: 37.87838033337469,
+          lng: -4.7912911597245555
         },
         zoom: 18,
         tilt: 30
