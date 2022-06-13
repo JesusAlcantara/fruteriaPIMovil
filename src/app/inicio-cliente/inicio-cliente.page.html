@@ -36,7 +36,12 @@
     </ion-card-header>
     <ion-card-content>
       <h3>Nombre: {{ producto.nombre }}</h3>
-      <p>Precio: {{ producto.precio }} €/Kg</p>
+      <p *ngIf="producto.categoria.nombre === 'Frutas' || producto.categoria.nombre === 'Verduras'; else otros">
+        Precio: {{ producto.precio }} €/Kg
+      </p>
+      <ng-template #otros>
+        <p>Precio: {{ producto.precio }} €</p>
+      </ng-template>
       <p>Categoría: {{ producto.categoria.nombre }}</p>
       <p>Cantidad: {{ producto.cantidad }}</p>
       <ion-button color="primary" (click)="presentInput(producto.id)">Añadir al carrito</ion-button>

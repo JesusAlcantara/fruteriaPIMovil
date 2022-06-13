@@ -18,7 +18,7 @@ export class RestServiceService {
   carrito: any[] = [];
   cantidadProducto: number;
   pedidosUser: any[] = []
-  precio: number;
+  precioTotal: number = 0
 
   constructor(private Http:HttpClient,
               private alertCtrl: AlertController) { }
@@ -93,7 +93,7 @@ export class RestServiceService {
         resolve(data)
         this.productoDevuelto=data;
         this.cantidadProducto = data.cantidad
-        this.precio = data.precio
+        this.precioTotal = this.precioTotal + data.precio
         this.carrito.push(this.productoDevuelto)
       },
       err=> {
@@ -102,7 +102,7 @@ export class RestServiceService {
     })
   }
 
-  confirmarPedido(formateo:string, idUsuario) {
+  confirmarPedido(formateo:string, idUsuario, fechaHoy:any, precio:any) {
     console.log(this.idUsuario)
     let header = {
       'Content-Type': 'application/x-www-form-urlencoded',
@@ -112,7 +112,7 @@ export class RestServiceService {
       headers: header
     }
 
-    let body = ('formateo=' + formateo + '&id=' + idUsuario)
+    let body = ('formateo=' + formateo + '&id=' + idUsuario + '&fecha_pedido=' + fechaHoy + '&precio_total=' + precio)
 
     return new Promise(resolve => {
       this.Http.post<any>(this.apiUrl+'/pedido', body, options)

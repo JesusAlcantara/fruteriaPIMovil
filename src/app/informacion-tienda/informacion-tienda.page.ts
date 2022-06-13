@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { MenuController, NavController } from '@ionic/angular';
 import { RestServiceService } from '../services/rest-service.service';
@@ -10,7 +11,7 @@ import { RestServiceService } from '../services/rest-service.service';
 export class InformacionTiendaPage implements OnInit {
 
   nombreUsuario: string = this.restService.nombreUsuario;
-
+  
   constructor(private menu: MenuController, 
               private restService: RestServiceService,
               private navCtrl: NavController) { }
@@ -20,6 +21,7 @@ export class InformacionTiendaPage implements OnInit {
 
   toggleMenu() {
     this.menu.toggle()
+    this.menu.enable(true)
   }
 
   logout() {

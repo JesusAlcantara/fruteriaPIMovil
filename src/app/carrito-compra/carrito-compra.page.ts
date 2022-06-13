@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RestServiceService } from '../services/rest-service.service';
-import { MenuController, NavController } from '@ionic/angular';
+import { MenuController, NavController, AlertController } from '@ionic/angular';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-carrito-compra',
@@ -11,18 +12,24 @@ export class CarritoCompraPage implements OnInit {
 
   productosCarrito: any[] = [];
   precioTotal: number;
+  fechaHoy: Date = new Date()
+  pipeDate = new DatePipe('es-ES')
+  todayWithPipe = null
 
   constructor(private restService: RestServiceService,
-              private navCtrl: NavController) { }
+              private navCtrl: NavController,
+              private alertCtrl: AlertController) { }
 
   ngOnInit() {
     this.productosCarrito = this.restService.carrito
+    this.precioTotal = this.restService.precioTotal
+    console.log(this.precioTotal)
   }
 
   vaciarCarrito() {
     this.productosCarrito = []
     this.restService.carrito = []
-    this.restService.precio = 0
+    this.restService.precioTotal = 0
   }
 
   logout() {
@@ -38,9 +45,22 @@ export class CarritoCompraPage implements OnInit {
         formateo += '.'
       }
     })
-    console.log(formateo)
-    console.log(this.restService.idUsuario)
-    this.restService.confirmarPedido(formateo, this.restService.idUsuario)
+    this.todayWithPipe = this.pipeDate.transform(Date.now(), 'yyyy/MM/dd');
+    this.restService.confirmarPedido(formateo, this.restService.idUsuario, this.todayWithPipe, this.precioTotal)
+    this.restService.carrito = []
+    this.navCtrl.navigateForward(['inicio-cliente'])
+    this.presentAlert()
   }
+  
+  async presentAlert() {
+    const alert = await this.alertCtrl.create({
+      header: 'Pedido realizado',
+      message: 'Gracias por realizar el pedido.',
+      buttons: ['OK']
+    });
+
+    await alert.present();
+  }
+  
 
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RestServiceService } from '../services/rest-service.service';
-import { LoadingController, NavController, Platform, ToastController } from '@ionic/angular';
+import { LoadingController, NavController, Platform, ToastController, MenuController } from '@ionic/angular';
 import { GoogleMap, GoogleMaps, GoogleMapsAnimation, GoogleMapsEvent, Marker, MyLocation } from '@ionic-native/google-maps';
 
 @Component({
@@ -11,13 +11,16 @@ import { GoogleMap, GoogleMaps, GoogleMapsAnimation, GoogleMapsEvent, Marker, My
 export class LocalizacionPage implements OnInit {
 
   map: GoogleMap;
+  nombreUsuario: string = this.restService.nombreUsuario;
   loading: any;
 
   constructor(
     public loadingCtrl: LoadingController,
     public toastCtrl: ToastController,
     private platform: Platform,
-    private navCtrl: NavController
+    private navCtrl: NavController,
+    private restService: RestServiceService,
+    private menu: MenuController
   ) {}
 
   async ngOnInit() {
@@ -26,6 +29,11 @@ export class LocalizacionPage implements OnInit {
     // ejecute para en ese momento cargar nuestro mapa sin problema alguno
     await this.platform.ready();
     await this.loadMap();
+  }
+
+  toggleMenu() {
+    this.menu.toggle()
+    this.menu.enable(true)
   }
 
   loadMap() {
@@ -81,7 +89,7 @@ export class LocalizacionPage implements OnInit {
         // Agregamos un nuevo marcador
         let marker: Marker = this.map.addMarkerSync({
           title: "Estoy aquí!",
-          snippet: "This plugin is awesome!",
+          snippet: "",
           position: location.latLng,
           animation: GoogleMapsAnimation.BOUNCE
         });

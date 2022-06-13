@@ -75,7 +75,6 @@ export class InicioClientePage implements OnInit {
           text: 'Cancelar',
           role: 'cancel',
           handler: () => {
-            console.log('Confirmar Cancelar');
           }
         }, {
           text: 'Confirmar',
