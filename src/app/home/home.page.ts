@@ -19,7 +19,7 @@ export class HomePage {
   }
 
   registerUser(){ 
-    this.nav.navigateForward(['registerpage'])
+    this.nav.navigateRoot(['registrar-usuario'])
   }
 
 }

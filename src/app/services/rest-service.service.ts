@@ -55,6 +55,24 @@ export class RestServiceService {
     });
   }
 
+  register(usuario:any){
+    return new Promise(resolve =>{
+      this.Http.post<any>(this.apiUrl+'/registrar',
+      {
+        nombre: usuario.value.nombre,
+        apellidos: usuario.value.apellidos,
+        email: usuario.value.email,
+        password: usuario.value.password,
+        c_password: usuario.value.c_password,
+        telefono: usuario.value.telefono
+      })
+      .subscribe(data=>(
+        this.token = data.token,
+        console.log(data),
+        resolve(data)))
+    });
+  }
+
   async noActivo() {
     const alert = await this.alertCtrl.create({
       header: 'Error',

@@ -1,0 +1,112 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button text="Volver" defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-card class="ion-no-margin">
+      <ion-img src="assets/images/registro.png"></ion-img>
+      <ion-card-content>
+
+    <form [formGroup]="registerUsuario" autocomplete="off">
+        <div class="wrapform">
+          <ion-item>
+            <ion-input type="text" name="nombre" formControlName="nombre"  placeholder="Nombre">
+           </ion-input>
+           </ion-item>
+           <div>
+               <ng-container *ngFor="let validation of errorMessages.nombre">
+                     <div class="error_message" *ngIf="registerUsuario.get('nombre').hasError(validation.type) && (registerUsuario.get('nombre').dirty || registerUsuario.get('nombre').touched)">
+                        {{validation.message}}
+                     </div>
+               </ng-container>
+           </div>
+           <ion-item>
+            <ion-input type="text" name="apellidos" formControlName="apellidos"  placeholder="Apellidos">
+           </ion-input>
+           </ion-item>
+           <div>
+               <ng-container *ngFor="let validation of errorMessages.nombre">
+                     <div class="error_message" *ngIf="registerUsuario.get('apellidos').hasError(validation.type) && (registerUsuario.get('apellidos').dirty || registerUsuario.get('apellidos').touched)">
+                        {{validation.message}}
+                     </div>
+               </ng-container>
+           </div>
+           <ion-item>
+            <ion-input type="text" name="telefono" formControlName="telefono"  placeholder="Teléfono">
+           </ion-input>
+           </ion-item>
+           <div>
+               <ng-container *ngFor="let validation of errorMessages.telefono">
+                     <div class="error_message" *ngIf="registerUsuario.get('telefono').hasError(validation.type) && (registerUsuario.get('telefono').dirty || registerUsuario.get('telefono').touched)">
+                        {{validation.message}}
+                     </div>
+               </ng-container>
+           </div>
+         <ion-item>
+            <ion-input type="text" name="email" formControlName="email"  placeholder="Email">
+           <ion-icon name="mail-outline"></ion-icon>
+           </ion-input>
+           </ion-item>
+           <div>
+               <ng-container *ngFor="let validation of errorMessages.email">
+                     <div class="error_message" *ngIf="registerUsuario.get('email').hasError(validation.type) && (registerUsuario.get('email').dirty || registerUsuario.get('email').touched)">
+                        {{validation.message}}
+                     </div>
+               </ng-container>
+           </div>
+
+           <ion-item>
+
+             <ion-input type="password" name="password" formControlName="password"  placeholder="**************" >
+             <ion-icon name="lock-closed"></ion-icon>
+             </ion-input>
+             </ion-item>
+
+             <div>
+                 <ng-container *ngFor="let validation of errorMessages.password">
+                      <div class="error_message" *ngIf="registerUsuario.get('password').hasError(validation.type) && (registerUsuario.get('password').dirty || registerUsuario.get('password').touched)">
+                         {{validation.message}}
+                      </div>
+                  </ng-container>
+             </div>
+
+             <ion-item>
+
+               <ion-input type="password" name="c_password" formControlName="c_password"  placeholder="**************" >
+               <ion-icon name="lock-closed"></ion-icon>
+               </ion-input>
+               </ion-item>
+  
+               <div>
+                   <ng-container *ngFor="let validation of errorMessages.c_password">
+                        <div class="error_message" *ngIf="registerUsuario.get('c_password').hasError(validation.type) && (registerUsuario.get('c_password').dirty || registerUsuario.get('c_password').touched)">
+                           {{validation.message}}
+                        </div>
+                    </ng-container>
+               </div>
+
+        </div>
+         <div class="sign-btn-wrap">
+            <ion-button  shape="round" fill="solid" (click)="guardar()" class="sign-btn" [disabled]="!registerUsuario.valid">Registrarse</ion-button>
+         </div>
+
+
+
+      </form>
+      </ion-card-content>
+
+
+    </ion-card>
+
+
+    <div class="ion-card-footer">
+     <span>¿Ya tienes una cuenta?</span><button class="ion-no-padding" routerLink="/loginpage">Inicio de Sesión</button>
+      </div>
+
+
+
+</ion-content>
