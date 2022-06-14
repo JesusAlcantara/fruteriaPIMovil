@@ -104,4 +104,14 @@ export class RegistrarUsuarioPage implements OnInit {
 
     await alert.present();
   }
+
+  async errorAlert() {
+    const alert = await this.alertCtrl.create({
+      header: 'Registro incorrecto',
+      message: 'Por favor, vuelva a introducir los datos correctamente.',
+      buttons: ['OK']
+    });
+
+    await alert.present();
+  }
 }
