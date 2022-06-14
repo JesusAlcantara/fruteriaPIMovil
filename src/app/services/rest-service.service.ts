@@ -40,7 +40,7 @@ export class RestServiceService {
       this.Http.post<any>(this.apiUrl+'/login', body, options)
        .subscribe(data => {
           this.rol = data.rol
-          this.idUsuario = data.id
+          this.idUsuario = data.id,
           this.nombreUsuario = data.nombre
           this.pedidosUser = data.pedidos
           sessionStorage.setItem('token', data.token)
