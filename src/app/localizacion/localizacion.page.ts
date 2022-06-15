@@ -11,15 +11,15 @@ import { GoogleMap, GoogleMaps, GoogleMapsAnimation, GoogleMapsEvent, Marker, My
 export class LocalizacionPage implements OnInit {
 
   map: GoogleMap;
-  nombreUsuario: string = this.restService.nombreUsuario;
+  nombreUsuario = this.restService.nombreUsuario
   loading: any;
 
   constructor(
     public loadingCtrl: LoadingController,
     public toastCtrl: ToastController,
     private platform: Platform,
-    private navCtrl: NavController,
     private restService: RestServiceService,
+    private navCtrl: NavController,
     private menu: MenuController
   ) {}
 
@@ -33,7 +33,7 @@ export class LocalizacionPage implements OnInit {
 
   toggleMenu() {
     this.menu.toggle()
-    this.menu.enable(true)
+    this.menu.enable(true);
   }
 
   loadMap() {
